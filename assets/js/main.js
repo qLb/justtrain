@@ -10,6 +10,8 @@
 		$body = $('body'),
 		$wrapper = $('#page-wrapper'),
 		$banner = $('#banner'),
+		$features = $('ul.features'),
+		$feature = $('ul.features li'),
 		$header = $('#header');
 
 	// Breakpoints.
@@ -79,5 +81,39 @@
 			});
 
 		}
+
+	// Features.
+	// if ($body.hasClass('is-mobile') && $features.length > 0 && $features.hasClass('ult')) {
+		// 	$window.on('resize', function() { $window.trigger('scroll'); });
+		// 	for (let i = 0; i < $feature.length; i++) {
+			// 		const $element = $feature[i];
+			// 		console.log($element)
+			// 		$banner.scrollex({
+				// 			bottom:		$element.offsetHeight + 1,
+				// 			terminate:	function() { $element.removeClass('active'); },
+				// 			enter:		function() { $element.addClass('active'); },
+				// 			leave:		function() { $element.removeClass('active'); }
+				// 		});
+				// 	}
+	// }
+	if ($body.hasClass('is-mobile') && $features.length > 0) {
+		$window.on('resize', function() { $window.trigger('scroll'); });
+		$feature.scrollex({
+			// Mode: Sets Scrollex to 'middle' mode (= midpoint between top/bottom edges must fall within contact area).
+			mode: 'middle',
+			// Initialize event: Add the 'inactive' class to this element as soon as Scrollex is initialized.
+			initialize: function() {
+				$(this).removeClass('active');
+			},
+		// Enter event: Remove the 'inactive' class from this element.
+			enter: function() {
+				$(this).addClass('active');
+			},
+		// Leave event: Apply the 'inactive' class to this element.
+			leave: function() {
+				$(this).removeClass('active');
+			}
+		});
+	}
 
 })(jQuery);
